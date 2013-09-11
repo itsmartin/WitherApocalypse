@@ -1,3 +1,7 @@
-name: TesseractApocalypse
-main: com.martinbrook.FunProjectiles.TesseractApocalypse
-version: 0.1
+name: WitherApocalypse
+main: com.martinbrook.WitherApocalypse.WitherApocalypse
+version: 0.2
+commands: 
+ apocalypse:
+  description: Toggles the apocalypse
+  usage: /apocalypse

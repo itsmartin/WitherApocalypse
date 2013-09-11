@@ -1,5 +1,5 @@
-TesseractApocalypse
-===================
+WitherApocalypse
+================
 
 A plugin to be used for an "End of the World" event on a Bukkit Minecraft server.
 
