@@ -125,14 +125,14 @@ public class WitherApocalypse extends JavaPlugin {
 		};
 
 		for(int n=0; n < 4; n++) {
-			armor[n].addEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
+			armor[n].addEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 2);
 		}
 		
 		i.setArmorContents(armor);
 		
-		i.addItem(new ItemStack(Material.SNOW_BALL, 64));
+		i.addItem(new ItemStack(Material.SNOW_BALL, 32));
 		
-		p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 9), true);
+		p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 4), true);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1), true);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 3), true);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1), true);
