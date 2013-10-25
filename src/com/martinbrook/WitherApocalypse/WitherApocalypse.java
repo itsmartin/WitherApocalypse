@@ -102,8 +102,10 @@ public class WitherApocalypse extends JavaPlugin {
 			equip(p);
 			world.playSound(p.getLocation(), Sound.WITHER_SPAWN, 30, 1);
 		}
-		else
+		else {
 			witherPlayers.remove(p.getName().toLowerCase());
+			for(PotionEffect pe : p.getActivePotionEffects()) p.removePotionEffect(pe.getType());
+		}
 		
 		p.setAllowFlight(value);
 	}
