@@ -138,7 +138,6 @@ public class WitherApocalypseListener implements Listener {
 		if (e.getEntity().getType() == EntityType.WITHER_SKULL) {
 			Projectile skull = (Projectile) e.getEntity();
 			if (skull.getShooter() instanceof Player) {
-				e.setFire(true);
 				e.setRadius(10);
 			}
 		}
