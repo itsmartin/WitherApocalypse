@@ -1,6 +1,6 @@
 name: WitherApocalypse
 main: com.martinbrook.WitherApocalypse.WitherApocalypse
-version: 0.2
+version: 0.3
 commands: 
  apocalypse:
   description: Toggles the apocalypse
