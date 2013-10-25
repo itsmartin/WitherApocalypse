@@ -1,6 +1,8 @@
 package com.martinbrook.WitherApocalypse;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.ChatColor;
@@ -26,6 +28,7 @@ public class WitherApocalypse extends JavaPlugin {
 	private Biome globalBiome = null;
 	private World world;
 	private Set<String> witherPlayers = new HashSet<String>();
+	private Map<String, Integer> playerChargeTime = new HashMap<String, Integer>();
 	
 	@Override
 	public void onEnable() {
@@ -139,6 +142,31 @@ public class WitherApocalypse extends JavaPlugin {
 				// For wither players, slow them down if they are on the ground not sprinting
 				if (((Entity)p).isOnGround() && !(p.isSprinting()))
 					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1), true);
+			} else {
+				if (((Entity)p).isOnGround()
+						&& p.getLocation().getBlock().getState().getType() == Material.ENDER_PORTAL_FRAME) {
+					
+					// Player is standing on an end portal block
+					Integer ct = playerChargeTime.get(p.getName());
+					if (ct == null) {
+						playerChargeTime.put(p.getName(), 0);
+						world.playSound(p.getLocation(), Sound.FIZZ, 30, 1);
+
+					} else {
+						ct += 10;
+						if (ct >= 80) {
+							playerChargeTime.remove(p.getName());
+							setWither(p, true);
+						} else {
+							if (ct % 20 == 0) {
+								world.playSound(p.getLocation(), Sound.ORB_PICKUP, 5, 10);
+							}
+							playerChargeTime.put(p.getName(), ct);
+						}
+					}
+				} else {
+					playerChargeTime.remove(p.getName());
+				}
 			}
 		}
 	}
