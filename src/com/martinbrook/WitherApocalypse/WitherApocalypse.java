@@ -12,6 +12,7 @@ import org.bukkit.block.Biome;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -59,6 +60,12 @@ public class WitherApocalypse extends JavaPlugin {
 		world.strikeLightning(world.getSpawnLocation());
 		setGlobalBiome(Biome.SKY);
 		world.setTime(0);
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				apocalypseTasks();
+			}
+			
+		}, 10L, 10L);
 	}
 	public void endApocalypse() {
 		if (!enabled) return;
@@ -123,8 +130,17 @@ public class WitherApocalypse extends JavaPlugin {
 		p.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 9), true);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 1), true);
 		p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 3), true);
-		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 7), true);
+		p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1), true);
 	}
 	
+	private void apocalypseTasks() {
+		for (Player p : getServer().getOnlinePlayers()) {
+			if (isWither(p)) {
+				// For wither players, slow them down if they are on the ground not sprinting
+				if (((Entity)p).isOnGround() && !(p.isSprinting()))
+					p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1), true);
+			}
+		}
+	}
 
 }

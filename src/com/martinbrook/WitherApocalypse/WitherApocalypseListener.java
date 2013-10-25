@@ -21,10 +21,12 @@ import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.PlayerToggleSprintEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 import org.bukkit.util.Vector;
@@ -221,9 +223,29 @@ public class WitherApocalypseListener implements Listener {
 	        event.setCancelled(true);
 	        Vector v = p.getLocation().getDirection().multiply(1).setY(1.5);
 	        p.setVelocity(v);
+			p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 10), true);
         }
     }
 	
+	/**
+	 * Adjust speed when sprinting
+	 * 
+	 * @param e
+	 */
+	@EventHandler
+	public void onToggleSprint(PlayerToggleSprintEvent e) {
+		if (!plugin.isApocalypse()) return;
+		
+		Player p = e.getPlayer();
+		
+		if (plugin.isWither(p)) {
+			if (e.isSprinting()) {
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 10), true);
+			} else {
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1), true);
+			}
+		}
+	}
 	
 	
 
